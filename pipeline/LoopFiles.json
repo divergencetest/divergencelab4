@@ -23,7 +23,8 @@
 						"childItems"
 					],
 					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings"
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
@@ -198,34 +199,46 @@
 				}
 			},
 			{
-				"name": "Web1",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "ForEach1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
+				"name": "ForEach2",
+				"type": "ForEach",
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://prod-07.southcentralus.logic.azure.com:443/workflows/ff33a66f63ee42a085d537dc16ab36e8/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ODhXKuAg79NpS2-Lw8ZJY9NiVkSSu7uQbYGvq9bs5w4",
-					"method": "POST",
-					"body": {
-						"value": "{\n\"recipient\":\"divergencetest@outlook.com\",\n\"run_id\":\"@{pipeline().RunId}\",\n\"trigger_time\":\"@{pipeline().TriggerTime}\",\n\"df_name\":\"@{pipeline().DataFactory}\"\n}",
-						"type": "Expression"
-					}
+					"activities": [
+						{
+							"name": "Web1",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-07.southcentralus.logic.azure.com:443/workflows/ff33a66f63ee42a085d537dc16ab36e8/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ODhXKuAg79NpS2-Lw8ZJY9NiVkSSu7uQbYGvq9bs5w4",
+								"method": "POST",
+								"body": {
+									"value": "{\n\"recipient\":\"@{item()}\",\n\"run_id\":\"@{pipeline().RunId}\",\n\"trigger_time\":\"@{pipeline().TriggerTime}\",\n\"df_name\":\"@{pipeline().DataFactory}\"\n}",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
+		"parameters": {
+			"RecipientList": {
+				"type": "array",
+				"defaultValue": [
+					"divergencetest@outlook.com",
+					"divergencetest2@outlook.com"
+				]
+			}
+		},
 		"annotations": []
 	}
 }
