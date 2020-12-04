@@ -201,9 +201,20 @@
 			{
 				"name": "ForEach2",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.RecipientList",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Web1",
