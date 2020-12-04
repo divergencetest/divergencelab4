@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfdivergencedqlab4"
+		},
+		"InvoicesBlob_connectionString": {
+			"value": ""
+		},
+		"InvoicesDB_connectionString": {
+			"value": ""
+		},
+		"WhenInputFileArrives_properties_LoopFiles_parameters_RecipientList": {
+			"value": [
+				"divergencetest@outlook.com"
+			]
+		},
+		"WhenInputFileArrives_properties_typeProperties_scope": {
+			"value": "/subscriptions/3a6713ad-fb61-40a1-8a95-cc80075db0ac/resourceGroups/rgdivergencedqlab4/providers/Microsoft.Storage/storageAccounts/sadivergencedqlab4"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
